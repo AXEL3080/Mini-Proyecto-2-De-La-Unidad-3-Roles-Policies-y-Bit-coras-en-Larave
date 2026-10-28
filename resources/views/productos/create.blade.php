@@ -11,14 +11,27 @@
     <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold mb-6 text-gray-800">Registrar Nuevo Producto</h1>
 
-        {{-- Aviso corto: el detalle de cada error se muestra junto a su campo (sin duplicar mensajes) --}}
+        {{-- Aviso de errores: el detalle de cada campo se muestra junto al campo;
+             aquí solo se listan errores de campos que NO están en este formulario --}}
         @if ($errors->any())
+            @php
+                $camposDelFormulario = ['nombre', 'descripcion', 'precio', 'existencia', 'categorias'];
+            @endphp
             <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
-                <p class="font-bold">Revisa los campos marcados en rojo.</p>
+                <p class="font-bold">¡Por favor corrige los campos marcados en rojo!</p>
+                @foreach ($errors->getMessages() as $campo => $mensajes)
+                    @unless (\Illuminate\Support\Str::startsWith($campo, $camposDelFormulario))
+                        <ul class="list-disc pl-5 mt-2">
+                            @foreach ($mensajes as $mensaje)
+                                <li>{{ $mensaje }}</li>
+                            @endforeach
+                        </ul>
+                    @endunless
+                @endforeach
             </div>
         @endif
 
-        <form action="{{ route('productos.store') }}" method="POST" novalidate
+        <form action="{{ route('productos.store') }}" method="POST"
               onsubmit="this.querySelector('button[type=submit]').disabled = true;">
             @csrf
 
@@ -47,7 +60,7 @@
             <div class="mb-4">
                 <label for="precio" class="block text-gray-700 font-semibold mb-2">Precio:</label>
                 <input type="number" id="precio" name="precio" value="{{ old('precio') }}"
-                       step="0.01" min="0" required inputmode="decimal"
+                       step="0.01" min="0" required
                        class="w-full border p-2 rounded focus:outline-none focus:border-blue-500 @error('precio') border-red-500 @else border-gray-300 @enderror">
                 @error('precio')
                     <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -58,22 +71,22 @@
             <div class="mb-4">
                 <label for="existencia" class="block text-gray-700 font-semibold mb-2">Existencia:</label>
                 <input type="number" id="existencia" name="existencia" value="{{ old('existencia') }}"
-                       step="1" min="0" required inputmode="numeric"
+                       step="1" min="0" required
                        class="w-full border p-2 rounded focus:outline-none focus:border-blue-500 @error('existencia') border-red-500 @else border-gray-300 @enderror">
                 @error('existencia')
                     <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                 @enderror
             </div>
 
-            <!-- Categoría -->
+            <!-- Categorías Dinámicas -->
             <div class="mb-4">
                 <label for="categorias" class="block text-gray-700 font-semibold mb-2">Categoría:</label>
                 <select id="categorias" name="categorias[]" required
-                        class="w-full border p-2 rounded focus:outline-none focus:border-blue-500 @if($errors->has('categorias') || $errors->has('categorias.*')) border-red-500 @else border-gray-300 @endif">
+                        class="w-full border p-2 rounded focus:outline-none focus:border-blue-500 {{ ($errors->has('categorias') || $errors->has('categorias.*')) ? 'border-red-500' : 'border-gray-300' }}">
                     <option value="">Seleccione una categoría</option>
                     @foreach ($categorias as $categoria)
                         <option value="{{ $categoria->id }}"
-                            @selected(in_array($categoria->id, old('categorias', [])))>
+                            {{ in_array($categoria->id, (array) old('categorias', [])) ? 'selected' : '' }}>
                             {{ $categoria->nombre }}
                         </option>
                     @endforeach
