@@ -41,3 +41,30 @@ Este proyecto forma parte de la **Unidad 3** y está enfocado en robustecer la s
 Sigue estos pasos para clonar y echar a andar el proyecto en tu máquina:
 
 1. **Clona el repositorio:**
+   
+git clone https://github.com/AXEL3080/Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave.git
+
+3. **Entra al directorio:**
+   
+cd Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave
+
+5. **Instala las dependencias:**
+
+composer install
+
+6. **Configura el archivo de entorno:**
+
+cp .env.example .env
+php artisan key:generate
+
+7. **Ejecuta las migraciones y seeders:**
+
+php artisan migrate --seed
+
+8. **Inicia el servidor:**
+
+php artisan serve
+
+
+---
+<p align="center">Desarrollado con 💻 para la materia académica.</p>
