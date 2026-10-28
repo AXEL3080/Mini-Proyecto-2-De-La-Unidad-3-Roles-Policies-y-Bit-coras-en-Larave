@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');          // <-- Este campo es el que faltaba
-            $table->text('descripcion')->nullable(); // <-- Este también
+            $table->string('nombre ');        
+            $table->text('descripcion')->nullale(); 
             $table->timestamps();
         });
     }
