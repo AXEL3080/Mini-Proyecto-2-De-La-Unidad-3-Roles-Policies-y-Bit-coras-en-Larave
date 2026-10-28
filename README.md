@@ -65,6 +65,9 @@ php artisan migrate --seed
 
 php artisan serve
 
+<p align="center">
+  <img src="https://media1.tenor.com/m/AQa-sGBW6JYAAAAC/luffy-gordo-luffy-gordinho.gif" width="350" alt="Luffy gordo">
+</p>
 
 ---
 <p align="center">Desarrollado con 💻 para la materia académica.</p>
