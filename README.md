@@ -38,21 +38,42 @@ Este proyecto forma parte de la **Unidad 3** y está enfocado en robustecer la s
 
 ## ⚙️ Instalación Local
 
+**Requisitos:** PHP 8.2+, Composer y SQLite habilitado.
+
 Sigue estos pasos para clonar y echar a andar el proyecto en tu máquina:
 
 1. **Clona el repositorio:**
-   
-git clone https://github.com/AXEL3080/Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave.git
+   ```bash
+   git clone https://github.com/AXEL3080/Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave.git
+   ```
 
-3. **Entra al directorio:**
-   
-cd Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave
+2. **Entra al directorio:**
+   ```bash
+   cd Mini-Proyecto-2-De-La-Unidad-3-Roles-Policies-y-Bit-coras-en-Larave
+   ```
 
-5. **Instala las dependencias:**
+3. **Instala las dependencias:**
+   ```bash
+   composer install
+   ```
 
-composer install
+4. **Configura el archivo de entorno:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-6. **Configura el archivo de entorno:**
+5. **Ejecuta las migraciones y seeders:**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. **Inicia el servidor:**
+   ```bash
+   php artisan serve
+   ```
+
+Luego abre `http://127.0.0.1:8000` en tu navegador.
 
 cp .env.example .env
 php artisan key:generate
